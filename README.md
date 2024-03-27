@@ -29,9 +29,9 @@ El proyecto se estructura en varias fases, que incluyen el Análisis Exploratori
 
 # 4.	PREGUNTAS FRECUENTES
 
--	¿Qué columnas están presentes en el DataFrame de los datos de los empleados?
--	¿Cuáles son los objetivos del proyecto?
--	¿Cómo se planifica el desarrollo del proyecto en sprints?
+-	¿Qué columnas están presentes en el DataFrame de los datos de los empleados?:
+-	¿Cuáles son los objetivos del proyecto?:
+-	¿Cómo se planifica el desarrollo del proyecto en sprints?:
 
 # 5.	AGRADECIMIENTOS
 Queremos agradecer al equipo de desarrollo por su arduo trabajo y dedicación en la realización de este proyecto. También agradecemos a nuestros mentores por su orientación y apoyo durante todo el proceso. ¡Gracias a todos por contribuir al éxito de este proyecto!
