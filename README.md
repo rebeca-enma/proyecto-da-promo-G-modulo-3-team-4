@@ -1,6 +1,7 @@
 
 # Proyecto Transformando el Talento: Análisis de Datos para Retener y Potenciar Empleados en ABC Corporation
 
+
 <img src="https://github.com/rebeca-enma/proyecto-da-promo-G-modulo-3-team-4/raw/main/IMG/logo.png" alt="Logo" width="100" align="right">
 
 
