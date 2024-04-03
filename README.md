@@ -8,7 +8,7 @@ Análisis de Datos para Retener y Potenciar Empleados en ABC Corporation
 2. [Documentación](#2-documentación)
 3. [Tecnologías utilizadas](#3-tecnolgias-utilizadas)
 4. [Preguntas frecuentes](#4-preguntas-frecuentes)
-5. [Agradecimientos](#5-agradecimientos)
+5. [Aportaciones](#5-aportaciones)
 
 # 1. INTRODUCCION:
 
@@ -36,12 +36,13 @@ Dentro del repositorio encontrarás 4 carpetas con diferentes documentos, las cu
 
 # 4.	PREGUNTAS FRECUENTES
 
--	¿Qué columnas están presentes en el DataFrame de los datos de los empleados?:
+-	¿Qué herramientas y tecnologías se utilizaron en el proyecto?: En el proyecto se ha utilizado Python y SQL para análisis y gestión de datos, GitHub para control de versiones, y Scrum para la planificación ágil.
+-   ¿Cómo puedo acceder y utilizar los datos del proyecto?: Puedes acceder a los datos del proyecto a través de archivos CSV proporcionados en la carpeta DATA, así como también mediante consultas directas a la base de datos SQL creada. Para utilizar los datos, pueden cargar los archivos CSV en entornos de análisis de datos como Python con Pandas, o ejecutar consultas SQL utilizando herramientas compatibles con bases de datos relacionales. Además de ver el código localizado en la carpeta NOTEBOOK. 
 -	¿Cuáles son los objetivos del proyecto?: Los objetivos del proyecto son analizar los datos de los empleados para comprender los factores que influyen en la satisfacción laboral y la retención de empleados en la empresa ABC Corporation. Esto implica identificar patrones, tendencias y relaciones en los datos que puedan ayudar a tomar decisiones informadas para mejorar la retención y la satisfacción laboral.
--	¿Cómo se planifica el desarrollo del proyecto en sprints?: El desarrollo del proyecto se planifica en sprints utilizando el marco Scrum. Un sprint es un período de tiempo fijo durante el cual se desarrolla y entrega un conjunto de funcionalidades o características específicas. Antes de cada sprint, se realiza una reunión de planificación del sprint donde se seleccionan las tareas a realizar y se establece el objetivo del sprint. Durante el sprint, se llevan a cabo reuniones diarias de seguimiento (stand-ups) para mantener al equipo alineado y abordar cualquier problema que surja. Al final del sprint, se lleva a cabo una reunión de revisión del sprint para demostrar el trabajo completado y una retrospectiva del sprint para identificar áreas de mejora. Este ciclo se repite en cada sprint, lo que permite una iteración continua y la entrega incremental de valor al proyecto.
 
 # 5.	APORTACIONES
 
-Como equipo consideramos que todas las ideas son bienvenidas y nos hacen mejorar como profesionales y equipo. Por eso consideramos importante que si tienes alguna idea o sugerencia que pueda aportar algo a nuestro proyecto, estaremos encantadas de oír cualquier propuesta de mejora. 
+Como equipo consideramos que todas las ideas son bienvenidas y nos hacen mejorar como profesionales y equipo. Por eso consideramos importante que si tienes alguna idea o sugerencia que pueda aportar algo a nuestro proyecto, estaremos encantadas de oír cualquier propuesta de mejora.
+
 ¡Te animo a echarle un vistazo a nuestro proyecto! ¡Si hay algo que podamos hacer para que sea aún mejor, no dudes en contactarnos!
 
