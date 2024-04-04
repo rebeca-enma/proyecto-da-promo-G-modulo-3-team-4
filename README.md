@@ -25,8 +25,8 @@ El proyecto se estructura en varias fases, que incluyen el Análisis Exploratori
 Dentro del repositorio encontrarás 4 carpetas con diferentes documentos, las cuales son:
 - BBDD
 - DATA
-- NOTEBOOK
 - IMG
+- NOTEBOOK
 
 # 3.	TECNOLOGÍAS UTILIZADAS
 
