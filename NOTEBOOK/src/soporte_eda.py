@@ -25,10 +25,10 @@ def exploracion_general (dataframe):
     """Esta función proporciona una descripción personalizada de un DataFrame,
     incluyendo estadísticas descriptivas y tipos de datos de cada columna.
     
-    Argumentos:
-    df : DataFrame de Pandas
-        El DataFrame para el cual se generará la descripción
-        
+    Args:
+    df : El DataFrame para el cual se generará la descripción
+
+    Returns:
     La funcion no tiene return pero devuelve varios prints con
     la informacion que necesitamos:
     - describe separados por col numericas y categoricas
@@ -68,16 +68,47 @@ def exploracion_columna (dataframe):
 
 ##FUNCIONES LIMPIEZA##
 
-# Eliminacion de las columnas, tras la exploracion de los datos
 def eliminar_columnas (dataframe, lista):
+    """
+    Elimina las columnas indicadas
+
+    Args:
+    dataframe: el DF que queremos modificar
+    lista: lista de columnas que queremos eliminar
+
+    Returns:
+    No tiene return, modifica el DF con "inplace=True"
+    """
+
     dataframe.drop(lista, axis=1, inplace=True)
 
-# Renombrar columnas
+
 def renombrar_columnas (dataframe):
+    """
+    Pone las cabeceras en mayuscula
+
+    Args:
+    dataframe: el DF que queremos modificar
+
+    Returns:
+    No tiene return, modifica el DF por asignacion directa
+    """
     dataframe.columns = [col.upper() for col in dataframe.columns]
 
-# Reemplazamos los números escritos en letras en ingles por integers
+
 def transformar_age(dataframe,columna): 
+    """
+    Intenta convertir los datos en int, y si no puede (porque esta escrito con letras)
+    lo convierte a numero
+
+    Args:
+    dataframe: el DF que queremos modificar
+    columna: la columna que queremos modificar
+
+    Returns:
+    No tiene return, modifica el DF por asignacion directa
+    """
+
     for i, age in enumerate (dataframe[columna]): 
         try:
             age = int(age)
@@ -86,13 +117,37 @@ def transformar_age(dataframe,columna):
             numero_entero = w2n.word_to_num(age)  
             dataframe.loc[i, columna] = numero_entero
 
-#Reemplazamos guiones por espacios
+
 def transformar_bus_travel (dataframe, columna):
+    """
+    Reemplaza guiones por espacios
+
+    Args:
+    dataframe: el DF que queremos modificar
+    columna: la columna que contiene los datos que queremos modificar
+
+    Returns:
+    No tiene return, modifica el DF por asignacion directa
+    """
+
     dataframe[columna] = dataframe[columna].str.replace("_", " ").replace("-", " ")
 
-#Reemplazamos , por . y los strings de "nan" por np.nan
+
 def cambiar_float(dataframe,columna): 
-     for i, element in enumerate (dataframe[columna]): 
+     
+    """
+    Reemplaza los strings "nan$", "nan" y "NaN" por np.nan 
+    En el resto reemplaza coma por punto, elimina "$" y convierte a float
+
+    Args:
+    dataframe: el DF que queremos modificar
+    columna: la columna que contiene los datos que queremos modificar
+
+    Returns:
+    No tiene return, modifica el DF por asignacion directa
+    """
+
+    for i, element in enumerate (dataframe[columna]): 
         if element == "nan$" or element == "nan" or element == "NaN":
             element = np.nan
             dataframe.loc[i, columna] = element
@@ -106,8 +161,17 @@ def cambiar_float(dataframe,columna):
         else:
             continue
 
-#Reemplazamos True, Yes por 1 y False, No por 0, ademas pasan de der STR a INT
 def transformar_remotework(dataframe, columna):
+    """
+    Reemplaza los True, Yes por 1 y False, No por 0, ademas los convierte a int
+
+    Args:
+    dataframe: el DF que queremos modificar
+    columna: la columna que contiene los datos que queremos modificar
+
+    Returns:
+    No tiene return, modifica el DF por asignacion directa
+    """
     diccionario_mapeo = {"True": 0, "Yes": 1, "False": 0, "1": 1, "0": 0, "No":0}
     try:
         dataframe[columna] = dataframe[columna].map(diccionario_mapeo)
@@ -115,8 +179,17 @@ def transformar_remotework(dataframe, columna):
     except:
         print(f"Error al transformar la columna {columna}")
 
-# Cambiamos los valores del DF de STR a INT
 def cambiar_int(dataframe,columna): 
+    """
+    Convierte strings a int, eliminando todo lo que hay despues de la coma
+
+    Args:
+    dataframe: el DF que queremos modificar
+    columna: la columna que contiene los datos que queremos modificar
+
+    Returns:
+    No tiene return, modifica el DF por asignacion directa
+    """
     for i, element in enumerate (dataframe[columna]): 
         if type(element) == str:
             try:
@@ -128,17 +201,47 @@ def cambiar_int(dataframe,columna):
         else:
             continue
 
-# Cambiamos a minusculas y quitamos espacios
+
 def transformar_department (dataframe, columna):
+    """
+    Convierte a minusculas y quita los espacios iniciales y finales
+
+    Args:
+    dataframe: el DF que queremos modificar
+    columna: la columna que contiene los datos que queremos modificar
+
+    Returns:
+    No tiene return, modifica el DF por asignacion directa
+    """
     dataframe[columna] = dataframe[columna].str.lower().str.strip()
 
-#Cambiamos 0 a male y 1 a female
+
 def transformar_gender (dataframe, columna):
+    """
+    Convierte 0 en "male" y 1 en "female"
+
+    Args:
+    dataframe: el DF que queremos modificar
+    columna: la columna que contiene los datos que queremos modificar
+
+    Returns:
+    No tiene return, modifica el DF por asignacion directa
+    """
     mapeo = {0 : "male", 1 : "female"}
     dataframe[columna]= dataframe[columna].map(mapeo)
 
-#Reemplazamos 'Not Available' por NaN y el punto y decimales y convertir a entero
 def transformar_hourlyrate(dataframe, columna):
+    """
+    Convierte 'Not Available' en np.nan y los numeros a float
+
+    Args:
+    dataframe: el DF que queremos modificar
+    columna: la columna que contiene los datos que queremos modificar
+
+    Returns:
+    No tiene return, modifica el DF por asignacion directa
+    """
+
     for i, valor in enumerate(dataframe[columna]):
         if isinstance(valor, str):
             try:
@@ -146,7 +249,6 @@ def transformar_hourlyrate(dataframe, columna):
                 if valor.strip() == 'Not Available':
                     dataframe.loc[i, columna] = np.nan
                 else:
-                    # Eliminar el punto y decimales y convertir a entero
                     valor = float(valor.replace('.', '').split('.')[0])
                     dataframe.loc[i, columna] = valor
             except ValueError:
@@ -155,8 +257,19 @@ def transformar_hourlyrate(dataframe, columna):
         else:
             continue
 
-# Correccion ortografica y conversion a minusculas
+
 def transformar_maritalstatus(dataframe, columna):
+    """
+    Funcion especifica para la columna marital status:
+    convierte a minusculas y corrige "marreid" por "married"
+
+    Args:
+    dataframe: el DF que queremos modificar
+    columna: la columna que contiene los datos que queremos modificar
+
+    Returns:
+    No tiene return, modifica el DF por asignacion directa
+    """
     for i, valor in enumerate(dataframe[columna]):
         if isinstance(valor, str):
             # Convertir a minúsculas
@@ -166,12 +279,31 @@ def transformar_maritalstatus(dataframe, columna):
             dataframe.loc[i, columna] = valor
         else:
             continue
-# Convertimos a tipo float64
-def transformar_float(dataframe, columna):
-    dataframe[columna] = dataframe[columna].astype('float64')  # 'Int64' es una forma segura de convertir a enteros con manejo de valores nulos
 
-# Devuelve el primer dígito del número entero (eliminando las unidades)
+def transformar_float(dataframe, columna):
+    """
+    Convierte a float64
+
+    Args:
+    dataframe: el DF que queremos modificar
+    columna: la columna que contiene los datos que queremos modificar
+
+    Returns:
+    No tiene return, modifica el DF por asignacion directa
+    """
+    dataframe[columna] = dataframe[columna].astype('float64') 
+
+
 def cambiar_numero(columna):
+    """
+    Dado un numero de varios digitos, se queda con el primero
+
+    Args:
+    columna: la columna que contiene los datos que queremos modificar
+
+    Returns:
+    Devuelve un numero entero de una cifra
+    """
     if isinstance(columna, int):
         return int(str(columna)[0])   
     else:
@@ -179,6 +311,18 @@ def cambiar_numero(columna):
 
 # Funcion general de llamada a todas las anteriores
 def limpieza_df(dataframe, lista):
+    """
+    Esta es una funcion de llamada a todas las funciones que se han creado
+    en el archivo soporte. Transforma el DF (elimina columnas, cambia las cabeceras,
+    modifica tipos de datos, reemplaza valores, etc)
+
+    Args:
+    dataframe: el DF que queremos modificar
+    columna: la columna que contiene los datos que queremos modificar
+
+    Returns:
+    Devuelve el dataframe modificado
+    """
 
     eliminar_columnas(dataframe, lista)
     renombrar_columnas(dataframe)
@@ -231,6 +375,15 @@ def limpieza_df(dataframe, lista):
 ##GESTION NULOS##
 
 def exploracion_nulos (dataframe):
+    
+    """Esta función explora los nulos del DataFrame, nos mostrara segun
+    el tipo de columna (numerica o categorica) el % de nulos de cada una
+    
+    Args:
+    dataframe : el dataframe que queremos explorar
+    
+    Returns:
+    La funcion devuelve varios prints con la informacion obtenida"""
 
     # sacamos una lista de las variables categoricas que tienen nulos
     nulos_esta_cat = dataframe[dataframe.columns[dataframe.isnull().any()]].select_dtypes(include = "O").columns
@@ -263,7 +416,18 @@ def exploracion_nulos (dataframe):
 # Sustituimos los nulos con una nueva categoria "Unknown" porque en ninguna columna la moda destaca.
 
 def gestion_nulos (dataframe, lista_unknown, lista_imputacion, lista_moda):
+    """Esta función gestiona los nulos, sustituyendolos por Unknown, por la moda
+    o imputandolos mediante IterativeImputer y KNNImputer
+    
+    Args:
+    dataframe : el dataframe que queremos explorar
+    lista_unknown: columnas en las que sustituiremos nulos por Unknown
+    lista_imputacion: columnas en las que imputaremos los nulos
+    lista_moda: columnas en las que sustituiremos los nulos por la moda
 
+    Returns:
+    La funcion devuelve el dataframe modificado y un print de las columnas imputadas que actualmente estan duplicadas
+    en el siguiente paso se deben eliminar las que no se necesiten"""
     for columna in lista_unknown:
         dataframe[columna] = dataframe[columna].fillna("Unknown")
         print("Comprobacion de la ausencia de los nulos")
@@ -322,7 +486,14 @@ def gestion_nulos (dataframe, lista_unknown, lista_imputacion, lista_moda):
     return dataframe
 
 def renombrar_imputacion (dataframe):
-
+    """Esta función renombra las columnas creadas con la imputacion de nulos.
+    Les vuelve a poner el nombre original
+    
+    Args:
+    dataframe : el dataframe que queremos explorar
+    
+    Returns:
+    La funcion devuelve el dataframe modificado"""
     nombre_antiguo = []
     for columna in dataframe.columns:
         if "_iterative" in columna or "_knn" in columna:
@@ -344,6 +515,13 @@ def renombrar_imputacion (dataframe):
 ##GESTION DUPLICADOS##
 
 def exploracion_duplicados (dataframe):
+    """Esta función explora los duplicados del DataFrame, en general y por columna
+    
+    Args:
+    dataframe : el dataframe que queremos explorar
+    
+    Returns:
+    La funcion devuelve varios prints con la informacion obtenida"""
     print("Estos son los duplicados generales del DataFrame: \n")
     print(dataframe.duplicated().sum())
 
@@ -354,6 +532,13 @@ def exploracion_duplicados (dataframe):
 
 
 def eliminar_duplicados (dataframe):
+    """Esta función elimina los duplicados generales del DataFrame
+    
+    Args:
+    dataframe : el dataframe que queremos explorar
+    
+    Returns:
+    La funcion devuelve el dataframe modificado"""
     dataframe.drop_duplicates(keep = "first", inplace = True)
     print("Comprobacion de la ausencia de duplicados")
     print(dataframe.duplicated().sum())

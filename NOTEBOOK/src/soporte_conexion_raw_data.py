@@ -12,6 +12,15 @@ import numpy as np
 
 
 def creacion_bbdd (usuario, contrasenya):
+    """Esta funcion crea la bbdd raw_data en mysql
+
+    Args:
+    - usuario: usuario para la conexion al servidor
+    - contraseña: contraseña para la conexión al servidor
+
+    Returns:
+    No devuelve ningún valor
+    """
     
     cnx = mysql.connector.connect(user=usuario, password=contrasenya,
                                 host='127.0.0.1')
@@ -33,6 +42,16 @@ def creacion_bbdd (usuario, contrasenya):
 
 
 def creacion_tablas (usuario, contrasenya, bbdd):
+    """Esta funcion crea las tablas empleado, empleado_empresa y registros en mysql
+
+    Args:
+    - usuario: usuario para la conexion al servidor
+    - contraseña: contraseña para la conexión al servidor
+    - bbdd: nombre de la bbdd donde queremos crear las tablas
+
+    Returns:
+    No devuelve ningún valor
+    """
     
     cnx = mysql.connector.connect(user=usuario, password=contrasenya,
                                 host='127.0.0.1', database= bbdd)
@@ -86,12 +105,13 @@ def creacion_tablas (usuario, contrasenya, bbdd):
    
     cnx.close()
 
+##  QUERYS DE INSERCION DE DATOS ##
 
 query_insertar_empleado = "INSERT INTO empleado (EMPLOYEE_NUMBER, AGE, EDUCATION, EDUCATION_FIELD, GENDER, MARITAL_STATUS, WORK_LIFE_BALANCE, NUM_COMPANIES_WORKED, RELATIONSHIP_SATISFACTION, TOTAL_WORKING_YEARS) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
 
 query_insertar_empleado_empresa = "INSERT INTO empleado_empresa (EMPLOYEE_NUMBER, DEPARTMENT, BUSINESS_TRAVEL, JOB_INVOLVEMENT, JOB_ROLE, JOB_SATISFACTION, ATTRITION, YEARS_AT_COMPANY, MONTHLY_RATE, PERCENT_SALARY_HIKE, STOCK_OPTION_LEVEL, TRAINING_TIMES_LAST_YEAR, YEARS_SINCE_LAST_PROMOTION, YEARS_WITH_CURRENT_MANAGER, DAILY_RATE, PERFORMANCE_RATING) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
 
-query_insertar_registro = "CREATE TABLE `registro` (ID_REGISTRO, EMPLOYEE_NUMBER, DISTANCE_FROM_HOME, REMOTE_WORK, MONTHLY_INCOME, HOURLY_RATE, OVER_TIME, ENVIRONMENT_SATISFACTION) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+query_insertar_registro = "INSERT INTO `registro` (EMPLOYEE_NUMBER, DISTANCE_FROM_HOME, REMOTE_WORK, MONTHLY_INCOME, HOURLY_RATE, OVER_TIME, ENVIRONMENT_SATISFACTION) VALUES (%s, %s, %s, %s, %s, %s, %s)"
 
 
 def insertar_datos(query, contraseña, nombre_bbdd, lista_tuplas):
@@ -105,9 +125,8 @@ def insertar_datos(query, contraseña, nombre_bbdd, lista_tuplas):
     - lista_tuplas (list): Lista que contiene las tuplas con los datos a insertar.
 
     Returns:
-    - None: No devuelve ningún valor, pero inserta los datos en la base de datos.
+    No devuelve ningún valor, pero inserta los datos en la base de datos.
 
-    This function connects to a MySQL database using the given credentials, executes the query with the provided list of tuples, and commits the changes to the database. In case of an error, it prints the error details.
     """
     cnx = mysql.connector.connect(
         user="root", 
@@ -129,3 +148,75 @@ def insertar_datos(query, contraseña, nombre_bbdd, lista_tuplas):
         print("SQLSTATE", err.sqlstate)
         print("Message", err.msg)
         cnx.close()
+
+
+def convertir_float(lista_tuplas):
+    """
+    Esta funcion convierte los elementos de una lista de tuplas a float cuando sea posible
+
+    Args:
+    - lista_tuplas: una lista que contiene tuplas 
+
+    Returns:
+    Devuelve una nueva lista con las mismas tuplas, pero con los elementos convertidos a float, cuando sea posible
+    """
+    datos_tabla_caract_def = []
+    
+    for tupla in lista_tuplas:
+        lista_intermedia = []
+        for elemento in tupla:
+            try:
+                lista_intermedia.append(float(elemento))
+            except:
+                lista_intermedia.append(elemento)
+            
+        datos_tabla_caract_def.append(tuple(lista_intermedia))
+    
+    return datos_tabla_caract_def
+
+def convertir_int(lista_tuplas):
+    """
+    Esta funcion convierte los elementos de una lista de tuplas a int cuando sea posible
+
+    Args:
+    - lista_tuplas: una lista que contiene tuplas 
+
+    Returns:
+    Devuelve una nueva lista con las mismas tuplas, pero con los elementos convertidos a int, cuando sea posible
+    """
+    datos_tabla_caract_def = []
+    
+    for tupla in lista_tuplas:
+        lista_intermedia = []
+        for elemento in tupla:
+            try:
+                lista_intermedia.append(int(elemento))
+            except:
+                lista_intermedia.append(elemento)
+            
+        datos_tabla_caract_def.append(tuple(lista_intermedia))
+    
+    return datos_tabla_caract_def
+
+
+def cambio_unknown (lista_tuplas):
+    """
+    Esta funcion convierte los Unknown en 0, solo cuando este en la posicion 0 de la tupla,
+    es decir, para la columna EMPLOYEE NUMBER   
+
+    Args:
+    - lista_tuplas: una lista que contiene tuplas 
+
+    Returns:
+    Devuelve una nueva lista con las tuplas modificadas
+    """
+    lista_para_tupla = []
+    for tupla in lista_tuplas:
+        lista = list(tupla)
+        if lista[0] == "Unknown":
+            lista[0] = 0
+            lista_para_tupla.append(tuple(lista))
+        else:
+            lista_para_tupla.append(tuple(lista))
+        
+    return lista_para_tupla
