@@ -27,12 +27,16 @@ Dentro del repositorio encontrarás 4 carpetas con diferentes documentos, las cu
 - DATA
 - IMG
 - NOTEBOOK
+- src
+- ABTESTING
+- Main
 
 # 3.	TECNOLOGÍAS UTILIZADAS
 
 -	Python: Para el análisis de datos, manipulación y visualización.
 -	SQL: Para el diseño y gestión de la base de datos.
 -	Control de versiones en GitHub: Para la colaboración y gestión del código.
+-   Archivos: en .py y .ipynb.
 
 # 4.	PREGUNTAS FRECUENTES
 
