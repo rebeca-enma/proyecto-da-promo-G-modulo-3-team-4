@@ -4,7 +4,7 @@ from src import soporte_eda as eda
 from src import soporte_conexion_raw_data as conexion
  
 # Apertura y lectura del documento csv
-df_data = pd.read_csv("../DATA/DATA.csv", index_col= 0)
+df_data = pd.read_csv("DATA/DATA.csv", index_col= 0)
 
 #%%
 # Funciones exploracion
@@ -76,9 +76,8 @@ conexion.insertar_datos(conexion.query_insertar_empleado, "AlumnaAdalab", "raw_d
 conexion.insertar_datos(conexion.query_insertar_empleado_empresa, "AlumnaAdalab", "raw_data", datos_tabla_empleado_empresa3)
 #%%
 conexion.insertar_datos(conexion.query_insertar_registro, "AlumnaAdalab", "raw_data", datos_tabla_registro3)
-#%%
-df_sin_duplicados
 
-#%%
 
-# %%
+
+
+
